@@ -1,30 +1,30 @@
 ## Основные команды:
 ```sql
 -- DATABASE
-SHOW DATABASES;  								-- show all existent databases;
-CREATE DATABASE <db_name>;  					-- create new database;
-USE <db_name>;									-- select database to use;
-SELECT DATABSE();								-- show name of used database;
-DROP DATABASE <db_name>;						-- delete database;
-DROP DATABASE IF EXISTS <db_name>;				-- delete database if exists (more correct way to delete database);
+SHOW DATABASES;                                 -- show all existent databases;
+CREATE DATABASE <db_name>;                      -- create new database;
+USE <db_name>;                                  -- select database to use;
+SELECT DATABSE();                               -- show name of used database;
+DROP DATABASE <db_name>;                        -- delete database;
+DROP DATABASE IF EXISTS <db_name>;              -- delete database if exists (more correct way to delete database);
 
 -- TABLES
-SHOW TABLES;									-- show all tables in used database;
-SHOW TABLES FROM <db_name>;						-- show all tables in specified database;
-DROP TABLE <tbl_name>, ...;			        	-- delete table;
-DROP TABLE IF EXISTS <tbl_name>, ...;	        -- delete table if exists (more correct way to delete table);
+SHOW TABLES;                                    -- show all tables in used database;
+SHOW TABLES FROM <db_name>;                     -- show all tables in specified database;
+DROP TABLE <tbl_name>, ...;                     -- delete table;
+DROP TABLE IF EXISTS <tbl_name>, ...;           -- delete table if exists (more correct way to delete table);
 
 -- COLUMNS
-SHOW COLUMNS FROM <tbl_name>;					-- show all columns of specified table;
-SHOW COLUMNS FROM <tbl_name> FROM <db_name>;	-- show all columns of specified table in specified database;
+SHOW COLUMNS FROM <tbl_name>;                   -- show all columns of specified table;
+SHOW COLUMNS FROM <tbl_name> FROM <db_name>;    -- show all columns of specified table in specified database;
 ```
 ---
 ## Создание таблицы:
 ```sql
 -- create table with specified fields with specified type;
 CREATE TABLE <tbl_name>(
-	<field_name> <type>,
-	<field_name> <type>
+    <field_name> <type>,
+    <field_name> <type>
 );
 ```
 Минус данного способа в том, что если таблица с указанным именем уже существует в используемой БД то возникает следующее исключение:
@@ -35,8 +35,8 @@ SQL Error [1050] [42S01]: Table '<tbl_name>' already exists
 ```sql
 -- create table only if table with this name not exists in used database (more correct way to create table);
 CREATE TABLE IF NOT EXISTS <tbl_name>(
-	<field_name> <type>,
-	<field_name> <type>
+    <field_name> <type>,
+    <field_name> <type>
 );
 ```
 ---
@@ -61,30 +61,30 @@ VALUES
 SHOW TABLES;
 
 CREATE TABLE IF NOT EXISTS book(
-	book_id INT PRIMARY KEY AUTO_INCREMENT,
-	title VARCHAR(50),
-	author VARCHAR(30),
-	price DECIMAL(8, 2),
-	amount INT
+    book_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(50),
+    author VARCHAR(30),
+    price DECIMAL(8, 2),
+    amount INT
 );
 
 SHOW TABLES;
 SHOW COLUMNS FROM book;
 
 INSERT INTO book
-	(title, author, price, amount)
+    (title, author, price, amount)
 VALUES
-	('Мастер и Маргарита', 'Булгаков М.А.', 670.99, 3)
+    ('Мастер и Маргарита', 'Булгаков М.А.', 670.99, 3)
 ;
 
 SELECT * FROM book;
 
 INSERT INTO book
-	(title, author, price, amount)
+    (title, author, price, amount)
 VALUES
-	('Белая гвардия', 'Булгаков М.А.', 540.50, 5),
-	('Идиот', 'Достоевский Ф.М.', 460.00, 10),
-	('Братья Карамазовы', 'Достоевский Ф.М.', 799.01, 2)
+    ('Белая гвардия', 'Булгаков М.А.', 540.50, 5),
+    ('Идиот', 'Достоевский Ф.М.', 460.00, 10),
+    ('Братья Карамазовы', 'Достоевский Ф.М.', 799.01, 2)
 ;
 
 SELECT * FROM book;
