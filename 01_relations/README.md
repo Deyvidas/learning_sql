@@ -1,3 +1,23 @@
+<style>
+    .hp_button {
+        position: fixed;
+        bottom: 2%;
+        left: 95%;
+        font-size: 15px;
+        border-color: rgba(85, 85, 85, 0.2);
+        background-color: rgb(100,100,100);
+        padding: 3px;
+        border-radius: 4px;
+    }
+</style>
+<button class="hp_button"><a href="#" style="color: white">Top</a></button>
+
+- [Основные команды](#основные-команды)
+- [Создание таблицы](#создание-таблицы)
+- [Посмотреть с какими полями была создана таблица](#посмотреть-с-какими-полями-была-создана-таблица)
+- [Добавление записей в таблицу](#добавление-записей-в-таблицу)
+- [Итоговый пример](#итоговый-пример)
+---
 ## Основные команды:
 ```sql
 -- DATABASE
@@ -13,6 +33,7 @@ SHOW TABLES;                                    -- show all tables in used datab
 SHOW TABLES FROM <db_name>;                     -- show all tables in specified database;
 DROP TABLE <tbl_name>, ...;                     -- delete table;
 DROP TABLE IF EXISTS <tbl_name>, ...;           -- delete table if exists (more correct way to delete table);
+SHOW CREATE TABLE <tbl_name>;                   -- show statement of how table was created;
 
 -- COLUMNS
 SHOW COLUMNS FROM <tbl_name>;                   -- show all columns of specified table;
@@ -38,6 +59,16 @@ CREATE TABLE IF NOT EXISTS <tbl_name>(
     <field_name> <type>,
     <field_name> <type>
 );
+```
+---
+## Посмотреть с какими полями была создана таблица:
+```sql
+SHOW CREATE TABLE book;
+```
+```text
+Table|Create Table                                                                                                                                                                                                                                                   |
+-----+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+book |CREATE TABLE `book` (¶  `book_id` int NOT NULL AUTO_INCREMENT,¶  `title` varchar(50) DEFAULT NULL,¶  `author` varchar(30) DEFAULT NULL,¶  `price` decimal(8,2) DEFAULT NULL,¶  `amount` int DEFAULT NULL,¶  PRIMARY KEY (`book_id`)¶) ENGINE=InnoDB AUTO_INCREM|
 ```
 ---
 ## Добавление записей в таблицу:

@@ -1,5 +1,21 @@
-- [MySQL - Comparison Functions and Operators](https://dev.mysql.com/doc/refman/8.0/en/comparison-operators.html)
+<style>
+    .hp_button {
+        position: fixed;
+        bottom: 2%;
+        left: 95%;
+        font-size: 15px;
+        border-color: rgba(85, 85, 85, 0.2);
+        background-color: rgb(100,100,100);
+        padding: 3px;
+        border-radius: 4px;
+    }
+</style>
+<button class="hp_button"><a href="#" style="color: white">Top</a></button>
 
+- [MySQL - Comparison Functions and Operators](https://dev.mysql.com/doc/refman/8.0/en/comparison-operators.html)
+- [Фильтрация](#)
+- [Как работает `BETWEEN`](#как-работает-between)
+- [Выборка отфильтрованная оператором `LIKE`](#выборка-отфильтрованная-оператором-like-применим-только-к-строкам)
 ---
 ## Фильтрация:
 ```sql
