@@ -65,6 +65,7 @@ supply_id|title         |author          |price |amount|
 запроса на выборку. В этом случае вместо раздела VALUES записывается запрос на
 выборку, начинающийся с SELECT. В нем можно использовать WHERE, GROUP BY,
 HAVING, ORDER BY, а так-же и вложенные запросы.
+
 ```sql
 INSERT INTO <tbl_name>(<field_1>, ..., <field_n>)
      SELECT <field_1>, ... <field_n>
@@ -74,10 +75,13 @@ INSERT INTO <tbl_name>(<field_1>, ..., <field_n>)
      HAVING <condition>
    ORDER BY <field>
 ```
+
 <p align="center">~~~</p>
+
 Пример:
 
 Занести все книги из таблицы supply в таблицу book.
+
 ```sql
 INSERT INTO book(title, author, price, amount)
      SELECT title, author, price, amount
@@ -100,16 +104,20 @@ book_id|title                |author          |price |amount|
      10|Белая гвардия        |Булгаков М.А.   |540.50|     7| <- ДУБЛИКАТ
      11|Идиот                |Достоевский Ф.М.|360.80|     3| <- ДУБЛИКАТ
 ```
+
 > С помощью этого запроса в таблицу book включены все книги из supply, даже те,
 которые в book уже есть («Белая гвардия» и «Идиот»). В результате в таблице
 одна и та же книга, например «Белая гвардия», имеет код 2 и 10. __Для
 реляционной модели это нежелательная ситуация__. Устранить эту проблему можно с
 помощью вложенных запросов, которые будут рассмотрены в следующем шаге.
+
 <p align="center">~~~</p>
+
 Задание:
 
 Добавить из таблицы supply в таблицу book, все книги, кроме книг, написанных
 Булгаковым М.А. и Достоевским Ф.М.
+
 ```sql
 INSERT INTO book(title, author, price, amount)
      SELECT title, author, price, amount
@@ -142,6 +150,7 @@ book_id|title                |author          |price |amount|
       8|Лирика               |Пастернак Б.Л.  |518.99|     2| <- НОВАЯ ЗАПИСЬ
       9|Черный человек       |Есенин С.А.     |570.20|     6| <- НОВАЯ ЗАПИСЬ
 ```
+
 > Таким образом мы избавились от дубликатов, но это не совсем удобный способ,
 лучше всего применять фильтрацию с вложенным запросом.
 
@@ -158,6 +167,7 @@ __Для предотвращения дублирования записей п
 
 Занести из таблицы supply в таблицу book только те книги, названия которых
 отсутствуют в таблице book.
+
 ```sql
 INSERT INTO book(title, author, price, amount)
      SELECT title, author, price, amount
@@ -212,6 +222,7 @@ book_id|title                |author          |price |amount|
 
 Занести из таблицы supply в таблицу book только те книги, авторов которых нет в
 book.
+
 ```sql
 INSERT INTO book(title, author, price, amount)
      SELECT title, author, price, amount
@@ -261,16 +272,20 @@ book_id|title                |author          |price |amount|
 <h3 id="5" align="center">Изменение существующих записей в таблице</h3>
 
 Синтаксис:
+
 ```sql
 UPDATE <tbl_name>
    SET <field_1> = <expr_1>,
        <field_2> = <expr_2>
  WHERE <condition_1>;
 ```
+
 <p align="center">~~~</p>
+
 Пример 1:
 
 Уменьшить на 30% цены всех книг в таблице book.
+
 ```sql
 UPDATE book
    SET price = price * 0.7;
@@ -312,10 +327,13 @@ book_id|title                |author          |price |amount|
 в предыдущем запросе), а только часть из них. Для этого в запрос включается
 ключевое слово WHERE, после которого указывается условие отбора строк для
 изменения.
+
 <p align="center">~~~</p>
+
 Пример 2:
 
 Уменьшить на 30% цену тех книг в таблице book, количество которых меньше 5.
+
 ```sql
 UPDATE book
    SET price = price * 0.7
@@ -360,6 +378,7 @@ book_id|title                |author          |price |amount|
 
 Уменьшить на 10% цену тех книг в таблице book, количество которых принадлежит
 интервалу от 5 до 10, включая границы.
+
 ```sql
 UPDATE book
    SET price = price * 0.9
@@ -463,6 +482,7 @@ UPDATE book
 <p align="center">~~~</p>
 
 Синтаксис:
+
 ```sql
 UPDATE <tbl_name1>, <tbl_name2>
    SET <tbl_name1>.<field_name1> = <expression1>,

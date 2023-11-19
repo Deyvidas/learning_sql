@@ -1,42 +1,32 @@
-<style>
-    .hp_button {
-        position: fixed;
-        bottom: 2%;
-        left: 95%;
-        font-size: 15px;
-        border-color: rgba(85, 85, 85, 0.2);
-        background-color: rgb(100,100,100);
-        padding: 3px;
-        border-radius: 4px;
-    }
-</style>
-<button class="hp_button"><a href="#" style="color: white">Top</a></button>
-
 - [MySQL - Comparison Functions and Operators](https://dev.mysql.com/doc/refman/8.0/en/comparison-operators.html)
-- [Фильтрация](#)
-- [Как работает `BETWEEN`](#как-работает-between)
-- [Выборка отфильтрованная оператором `LIKE`](#выборка-отфильтрованная-оператором-like-применим-только-к-строкам)
+- [Фильтрация](#1)
+- [Как работает BETWEEN](#2)
+- [Выборка отфильтрованная оператором LIKE](#3)
+
 ---
-## Фильтрация:
+
+<h3 id="1" align="center">Фильтрация</h3>
+
 ```sql
-SELECT
-    <fields>
-FROM
-    <tbl_name>
-WHERE
-    <condition_1>,
-    [AND|OR|NOT] <condition_2>
+SELECT <fields>
+  FROM <tbl_name>
+ WHERE <condition_1>,
+       [AND|OR|NOT] <condition_2>
 ```
+
+<p align="center">~~~</p>
+
 Пример 1:
 
-Вывести название, автора  и стоимость (цена умножить на количество) тех книг, стоимость которых больше 4000 рублей
+Вывести название, автора  и стоимость (цена умножить на количество) тех книг,
+стоимость которых больше 4000 рублей
+
 ```sql
-SELECT
-    title,
-    author,
-    price
-FROM book
-WHERE price * amount > 4000;
+SELECT title,
+       author,
+       price
+  FROM book
+ WHERE price * amount > 4000;
 ```
 ```text
 title                |author          |price |
@@ -44,19 +34,21 @@ title                |author          |price |
 Идиот                |Достоевский Ф.М.|460.00|
 Стихотворения и поэмы|Есенин С.А.     |650.00|
 ```
+
+<p align="center">~~~</p>
+
 Пример 2:
 
-Вывести название, цену  тех книг, которые написал Булгаков или Есенин, ценой больше 600 рублей
+Вывести название, цену  тех книг, которые написал Булгаков или Есенин, ценой
+больше 600 рублей.
+
 ```sql
-SELECT
-    title,
-    author,
-    price
-FROM book
-WHERE 
-    LOWER(author) IN ('булгаков м.а.', 'есенин с.а.')
-    AND price > 600
-;
+SELECT title,
+       author,
+       price
+  FROM book
+ WHERE author IN ('Булгаков м.а.', 'Есенин с.а.')
+   AND price > 600;
 ```
 ```text
 title                |author       |price |
@@ -64,38 +56,43 @@ title                |author       |price |
 Мастер и Маргарита   |Булгаков М.А.|670.99|
 Стихотворения и поэмы|Есенин С.А.  |650.00|
 ```
+
+<p align="center">~~~</p>
+
 Пример 3:
 
-Вывести название, автора,  цену  и количество всех книг, цена которых меньше 500 или больше 600, а стоимость всех экземпляров этих книг больше или равна 5000.
+Вывести название, автора,  цену  и количество всех книг, цена которых меньше
+500 или больше 600, а стоимость всех экземпляров этих книг больше или равна
+5000.
+
 ```sql
-SELECT
-    title,
-    author,
-    price,
-    amount
-FROM book
-WHERE
-    NOT (price BETWEEN 500 AND 600)
-    AND (amount * price) >= 5000
-;
+SELECT title,
+       author,
+       price,
+       amount
+  FROM book
+ WHERE price NOT BETWEEN 500 AND 600
+   AND (amount * price) >= 5000;
 ```
 ```text
 title                |author     |price |amount|
 ---------------------+-----------+------+------+
 Стихотворения и поэмы|Есенин С.А.|650.00|    15|
 ```
+
+<p align="center">~~~</p>
+
 Пример 4:
 
-Вывести название и авторов тех книг, цены которых принадлежат интервалу от 540.50 до 800 (включая границы),  а количество или 2, или 3, или 5, или 7 .
+Вывести название и авторов тех книг, цены которых принадлежат интервалу от
+540.50 до 800 (включая границы),  а количество или 2, или 3, или 5, или 7 .
+
 ```sql
-SELECT
-    title,
-    author
-FROM book
-WHERE
-    price BETWEEN 540.5 AND 800
-    AND amount IN (2, 3, 5, 7)
-;
+SELECT title,
+       author
+  FROM book
+ WHERE price BETWEEN 540.5 AND 800
+   AND amount IN (2, 3, 5, 7);
 ```
 ```text
 title             |author          |
@@ -104,18 +101,27 @@ title             |author          |
 Белая гвардия     |Булгаков М.А.   |
 Братья Карамазовы |Достоевский Ф.М.|
 ```
+
 ---
-## Как работает `BETWEEN`:
+
+<h3 id="2" align="center">Как работает BETWEEN</h3>
+
+Синтаксис:
+
 ```sql
 -- BETWEEN check if value in [a; b] (including border value)
-<value> BETWEEN <a> AND <b>
+<value> [NOT] BETWEEN <a> AND <b>
 ```
+
+<p align="center">~~~</p>
+
+Пример:
+
 ```sql
-SELECT
-    title,
-    price
-FROM book
-WHERE price BETWEEN 460 AND 540.50;
+SELECT title,
+       price
+  FROM book
+ WHERE price BETWEEN 460 AND 540.50;
 ```
 ```text
 title        |price |
@@ -123,19 +129,21 @@ title        |price |
 Белая гвардия|540.50|
 Идиот        |460.00|
 ```
+
 ---
-## Выборка отфильтрованная оператором `LIKE` (применим только к строкам):
+
+<h3 id="3" align="center">Выборка отфильтрованная оператором LIKE (применим только к строкам)</h3>
+
 - `%` - Любая строка, содержащая ноль или более символов (`r'.*'`).
 - `_` - Любой одиночный символ (`r'.'`).
-- <u><b>Строчные и прописные буквы в строках эквивалентны (регистр-независимый поиск).</b></u>
+- __Строчные и прописные буквы в строках эквивалентны (регистр-независимый поиск).__
+
+<p align="center">~~~</p>
+
 ```sql
-SELECT
-    title
-FROM
-    book
-WHERE
-    title LIKE 'Б%'
-;
+SELECT title
+  FROM book
+ WHERE title LIKE 'Б%';
 ```
 ```text
 title            |
@@ -144,13 +152,9 @@ title            |
 Братья Карамазовы|
 ```
 ```sql
-SELECT
-    title
-FROM
-    book
-WHERE
-    title LIKE 'б%'
-;
+SELECT title
+  FROM book
+ WHERE title LIKE 'б%';
 ```
 ```text
 title            |
@@ -158,17 +162,17 @@ title            |
 Белая гвардия    |
 Братья Карамазовы|
 ```
+
+<p align="center">~~~</p>
+
 Пример 1:
 
 Вывести название книг, состоящих ровно из 5 букв.
+
 ```sql
-SELECT
-    title
-FROM
-    book
-WHERE
-    title LIKE '_____'
-;
+SELECT title
+  FROM book
+ WHERE title LIKE '_____';
 ```
 ```text
 title|
@@ -176,17 +180,17 @@ title|
 Идиот|
 Поэмы|
 ```
+
+<p align="center">~~~</p>
+
 Пример 2:
 
 Вывести книги, название которых длиннее 5 символов.
+
 ```sql
-SELECT
-    title
-FROM
-    book
-WHERE
-    title LIKE '______%'
-;
+SELECT title
+  FROM book
+ WHERE title LIKE '______%';
 ```
 ```text
 title                |
@@ -199,17 +203,18 @@ title                |
 Лирика               |
 Капитанская дочка    |
 ```
+
+<p align="center">~~~</p>
+
 Пример 3:
 
-Вывести названия книг, которые состоят ровно из одного слова, если считать, что слова в названии отделяются друг от друга пробелами .
+Вывести названия книг, которые состоят ровно из одного слова, если считать, что
+слова в названии отделяются друг от друга пробелами.
+
 ```sql
-SELECT
-    title
-FROM
-    book
-WHERE
-    NOT (title LIKE '% %')
-;
+SELECT title
+  FROM book
+ WHERE title NOT LIKE '% %';
 ```
 ```text
 title |
@@ -218,21 +223,25 @@ title |
 Лирика|
 Поэмы |
 ```
+
+<p align="center">~~~</p>
+
 Задание:
 
-Вывести название и автора тех книг, название которых состоит из двух и более слов, а инициалы автора содержат букву «С». Считать, что в названии слова отделяются друг от друга пробелами и не содержат знаков препинания, между фамилией автора и инициалами обязателен пробел, инициалы записываются без пробела в формате: буква, точка, буква, точка. Информацию отсортировать по названию книги в алфавитном порядке.
+Вывести название и автора тех книг, название которых состоит из двух и более
+слов, а инициалы автора содержат букву «С». Считать, что в названии слова
+отделяются друг от друга пробелами и не содержат знаков препинания, между
+фамилией автора и инициалами обязателен пробел, инициалы записываются без
+пробела в формате: буква, точка, буква, точка. Информацию отсортировать по
+названию книги в алфавитном порядке.
+
 ```sql
-SELECT
-    title,
-    author
-FROM
-    book
-WHERE
-    title LIKE '%_% %_%' AND
-    author LIKE '%с.%'
-ORDER BY
-    title ASC
-;
+  SELECT title,
+         author
+    FROM book
+   WHERE title LIKE '%_% %_%'
+     AND author LIKE '%с.%'
+ORDER BY title ASC;
 ```
 ```text
 title                |author     |

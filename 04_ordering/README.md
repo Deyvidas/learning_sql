@@ -1,49 +1,36 @@
-<style>
-    .hp_button {
-        position: fixed;
-        bottom: 2%;
-        left: 95%;
-        font-size: 15px;
-        border-color: rgba(85, 85, 85, 0.2);
-        background-color: rgb(100,100,100);
-        padding: 3px;
-        border-radius: 4px;
-    }
-</style>
-<button class="hp_button"><a href="#" style="color: white">Top</a></button>
+- [Выборка данных с сортировкой](#1)
+- [Сортировка по алиасам](#2)
+- [Задание](#3)
 
-- [Выборка данных с сортировкой](#выборка-данных-с-сортировкой)
-- [Сортировка по алиасам](#сортировка-по-алиасам)
-- [Задание](#задание)
 ---
-## Выборка данных с сортировкой:
-<u>По умолчанию `ORDER BY` выполняет сортировку по возрастанию `ASC`.</u>
+
+<h3 id="1" align="center">Выборка данных с сортировкой</h3>
+
+__По умолчанию `ORDER BY` выполняет сортировку по возрастанию `ASC`.__
+
 ```sql
-SELECT
-    <fields>
-FROM
-    <tbl_name>
-ORDER BY 
-    <column1> [ASC|DESC], 
-    <column2> [ASC|DESC]
-;
+  SELECT <fields>
+    FROM <tbl_name>
+ORDER BY <column1> [ASC|DESC], 
+         <column2> [ASC|DESC];
 ```
+
+<p align="center">~~~</p>
+
 Пример 1:
 
-Вывести автора, название и количество книг, в отсортированном в алфавитном порядке по автору и по убыванию количества, для тех книг, цены которых меньше 750 рублей.
+Вывести автора, название и количество книг, в отсортированном в алфавитном
+порядке по автору и по убыванию количества, для тех книг, цены которых меньше
+750 рублей.
+
 ```sql
-SELECT
-    author,
-    title,
-    amount
-FROM
-    book
-WHERE
-    price < 750
-ORDER BY
-    author ASC,
-    amount DESC
-;
+  SELECT author,
+         title,
+         amount
+    FROM book
+   WHERE price < 750
+ORDER BY author ASC,
+         amount DESC;
 ```
 ```text
 author          |title                |amount|
@@ -53,21 +40,19 @@ author          |title                |amount|
 Достоевский Ф.М.|Идиот                |    10|
 Есенин С.А.     |Стихотворения и поэмы|    15|
 ```
+
 ---
-## Сортировка по алиасам:
+
+<h3 id="2" align="center">Сортировка по алиасам</h3>
+
 ```sql
-SELECT
-    author AS автор,
-    title AS название,
-    amount AS `кол-во шт.`
-FROM
-    book
-WHERE
-    price < 750
-ORDER BY
-    автор ASC,
-    `кол-во шт.` DESC
-;
+  SELECT author AS автор,
+         title AS название,
+         amount AS `кол-во шт.`
+    FROM book
+   WHERE price < 750
+ORDER BY автор ASC,
+         `кол-во шт.` DESC;
 ```
 ```text
 автор           |название             |кол-во шт.|
@@ -77,22 +62,22 @@ ORDER BY
 Достоевский Ф.М.|Идиот                |        10|
 Есенин С.А.     |Стихотворения и поэмы|        15|
 ```
----
-## Задание:
 
-Вывести  автора и название  книг, количество которых принадлежит интервалу от 2 до 14 (включая границы). Информацию  отсортировать сначала по авторам (в обратном алфавитном порядке), а затем по названиям книг (по алфавиту).
+---
+
+<h3 id="" align="center">Задание</h3>
+
+Вывести  автора и название  книг, количество которых принадлежит интервалу от
+2 до 14 (включая границы). Информацию  отсортировать сначала по авторам (в
+обратном алфавитном порядке), а затем по названиям книг (по алфавиту).
+
 ```sql
-SELECT
-    author,
-    title
-FROM
-    book
-WHERE
-    amount BETWEEN 2 AND 14
-ORDER BY
-    author DESC,
-    title ASC
-;
+  SELECT author,
+         title
+    FROM book
+   WHERE amount BETWEEN 2 AND 14
+ORDER BY author DESC,
+         title ASC;
 ```
 ```text
 author          |title             |
