@@ -60,6 +60,21 @@ CREATE TABLE IF NOT EXISTS <tbl_name>(
     <field_name> <type>
 );
 ```
+
+<p align="center">~~~</p>
+
+```sql
+-- Создать таблицу на основе существующей;
+CREATE TABLE IF NOT EXISTS <tbl_name>
+                    SELECT <field_1>,
+                           ...,
+                           <field_n>
+                     WHERE ...
+                  GROUP BY ...
+                    HAVING ...
+                  ORDER BY ...
+                     LIMIT ...;
+```
 ---
 ## Посмотреть с какими полями была создана таблица:
 ```sql
@@ -73,13 +88,10 @@ book |CREATE TABLE `book` (¶  `book_id` int NOT NULL AUTO_INCREMENT,¶  `title`
 ---
 ## Добавление записей в таблицу:
 ```sql
-INSERT INTO <tbl_name>
-    (<field_1>, <field_2>)
-VALUES
-    (<value_1>, <value_2>),
-    (<value_1>, <value_2>),
-    (<value_1>, <value_2>)
-;
+INSERT INTO <tbl_name>(<field_1>, <field_2>)
+     VALUES (<value_1>, <value_2>),
+            (<value_1>, <value_2>),
+            (<value_1>, <value_2>);
 ```
 1. количество полей и количество значений в списках должны совпадать;
 2. должно существовать прямое соответствие между позицией одного и того же элемента в обоих списках;
