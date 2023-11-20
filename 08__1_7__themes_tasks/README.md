@@ -1,6 +1,7 @@
 - [Использование LIMIT (лимит записей в окончательной выборке)](#4)
 - [Использование DATEDIFF (вычитание из одной даты другую)](#5)
     - [Date and Time Functions](https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html)
+    - [MySQL DATE Data Type tutorial](https://www.mysqltutorial.org/mysql-date/)
 - [Использование MONTH](#7)
 - [Использование YEAR](#9)
 - [Использование DATEADD INTERVAL](#10.1)
