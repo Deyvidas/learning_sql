@@ -175,9 +175,6 @@ __Задание 2:__
 
 <details><br><summary>Содержание главных таблиц author и genre</summary>
 
-```sql
-SELECT * FROM author;
-```
 ```text
 author_id|name_author     |
 ---------+----------------+
@@ -189,9 +186,6 @@ author_id|name_author     |
 
 <p align="center">~~~</p>
 
-```sql
-SELECT * FROM genre;
-```
 ```text
 genre_id|name_genre|
 --------+----------+
@@ -203,9 +197,6 @@ genre_id|name_genre|
 
 <details><br><summary>Содержание подчиненной таблицы book</summary>
 
-```sql
-SELECT * FROM book;
-```
 ```text
 book_id|title             |author_id|genre_id|price |amount|
 -------+------------------+---------+--------+------+------+
