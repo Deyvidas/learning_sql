@@ -648,7 +648,7 @@ name         |city           |date_first|Сумма  |
 раза, в отсортированном по убыванию сумм суточных виде. Последний столбец
 назвать Сумма.
 
-<details><summary>Только для этого задания изменена строка таблицы trip</summary>
+<details id="10.1"><summary>Только для этого задания изменена строка таблицы trip</summary>
 
 ```sql
 SELECT *
@@ -662,7 +662,7 @@ trip_id|name        |city       |per_diem|date_first|date_last |
                                                      ^^^^^^^^^^
 ```
 
-<p id="10.1" align="center">~~~</p>
+<p align="center">~~~</p>
 
 ```sql
 UPDATE trip

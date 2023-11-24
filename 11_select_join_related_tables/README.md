@@ -9,6 +9,8 @@
 - [Запросы для нескольких таблиц со вложенными запросами](#7)
 - [Вложенные запросы в операторе JOIN](#8)
 - [Операция соединение, использование USING](#9)
+- [Склеивание двух таблиц с использованием UNION](#10)
+    - [MySQL UNION - tutorial](https://www.mysqltutorial.org/sql-union-mysql.aspx)
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
@@ -30,8 +32,8 @@
 
 <h3 id="2" align="center">Соединение INNER JOIN</h3>
 
-<p align="center"><img width="150" src="./images/INNER-JOIN-Diagram.png"></p>
-<p align="center"><img width="500" src="./images/INNER-JOIN-Table.png"></p>
+<p align="center"><img width="20%" src="./images/INNER-JOIN-Diagram.png"></p>
+<p align="center"><img width="60%" src="./images/INNER-JOIN-Table.png"></p>
 
 <p align="center">~~~</p>
 
@@ -180,13 +182,13 @@ title                |name_genre|price |
   <tr align="center">
     <td>
         <p>LEFT OUTER JOIN</p>
-        <p><img width="150" src="./images/LEFT-JOIN-Diagram.png"></p>
-        <p><img width="400" src="./images/LEFT-JOIN-Table.png"></p>
+        <p><img width="40%" src="./images/LEFT-JOIN-Diagram.png"></p>
+        <p><img width="100%" src="./images/LEFT-JOIN-Table.png"></p>
     </td>
     <td>
         <p>RIGHT OUTER JOIN</p>
-        <p><img width="150" src="./images/RIGHT-JOIN-Diagram.png"></p>
-        <p><img width="400" src="./images/RIGHT-JOIN-Table.png"></p>
+        <p><img width="40%" src="./images/RIGHT-JOIN-Diagram.png"></p>
+        <p><img width="100%" src="./images/RIGHT-JOIN-Table.png"></p>
     </td>
   </tr>
 </table>
@@ -1569,3 +1571,143 @@ SELECT b.title AS Название,
 --------------+-----------+----------+
 Черный человек|Есенин С.А.|        12|
 ```
+
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+
+---
+
+<h3 id="10" align="center">Склеивание двух таблиц с использованием UNION</h3>
+
+<p align="center"><img width="35%" src="./images/UNION-UNION-ALL-Diagram.png"></p>
+
+Оператор UNION используется для объединения двух и более SQL запросов, каждый
+запрос должен возвращать одинаковое количество столбцов и совместимые типы
+возвращаемых данных.
+
+В результате выполнения этой конструкции будет выведена таблица, имена столбцов
+которой соответствуют именам столбцов в первом запросе. А в таблице результата
+сначала отображаются записи первого запроса, затем второго, и т.д.
+Если указано ключевое слово ALL, то в результат включаются все записи запросов,
+в противном случае - различные.
+
+Различной записью считается та запись, комбинация значений __ВЫБРАННЫХ__
+столбцов которой уникальное в пределах будущей таблицы.
+
+<p align="center"><b>UNION</b></p>
+
+```text
++----+----+        +----+----+         +----+----+
+|col1|col2|        |col1|col2|         |col1|col2|
++----+----+        +----+----+         +----+----+
+|  1 | A  | <-1    |  1 | B  |         |  1 | A  | <-1
+|  1 | B  | <-2    |  1 | C  | <-5     |  1 | B  | <-2
+|  2 | A  | <-3    |  2 | B  |         |  2 | A  | <-3
+|  2 | B  | <-4    |  2 | C  | <-6     |  2 | B  | <-4
++----+----+        +----+----+         |  1 | C  | <-5
+                                       |  2 | C  | <-6
+                                       +----+----+
+```
+
+<p align="center"><b>UNION ALL</b></p>
+
+```text
++----+----+        +----+----+         +----+----+
+|col1|col2|        |col1|col2|         |col1|col2|
++----+----+        +----+----+         +----+----+
+|  1 | A  | <-1    |  1 | B  | <-5     |  1 | A  | <-1
+|  1 | B  | <-2    |  1 | C  | <-6     |  1 | B  | <-2
+|  2 | A  | <-3    |  2 | B  | <-7     |  2 | A  | <-3
+|  2 | B  | <-4    |  2 | C  | <-8     |  2 | B  | <-4
++----+----+        +----+----+         |  1 | B  | <-5
+                                       |  1 | C  | <-6
+                                       |  2 | B  | <-7
+                                       |  2 | C  | <-8
+                                       +----+----+
+```
+
+<p align="center"><b>Синтаксис</b></p>
+
+```sql
+     SELECT ...
+       FROM ...
+        ... ...
+UNION [ALL]
+     SELECT ...
+       FROM ...
+        ... ...;
+```
+
+<p align="center">~~~</p>
+
+__Пример:__
+
+<details><br><summary>Таблица buy_archive</summary>
+
+```text
+buy_archive_id|buy_id|client_id|book_id|date_payment|price |amount|
+--------------+------+---------+-------+------------+------+------+
+             1|     2|        1|      1|  2019-02-21|670.60|     2|
+             2|     2|        1|      3|  2019-02-21|450.90|     1|
+             3|     1|        2|      2|  2019-02-10|520.30|     2|
+             4|     1|        2|      4|  2019-02-10|780.90|     3|
+             5|     1|        2|      3|  2019-02-10|450.90|     1|
+             6|     3|        4|      4|  2019-03-05|780.90|     4|
+             7|     3|        4|      5|  2019-03-05|480.90|     2|
+             8|     4|        1|      6|  2019-03-12|650.00|     1|
+             9|     5|        2|      1|  2019-03-18|670.60|     2|
+            10|     5|        2|      4|  2019-03-18|780.90|     1|
+```
+
+<hr style="margin-left: 25%; margin-right: 25%;"></details><br>
+
+```sql
+SELECT client.name_client,
+       buy_archive.date_payment,
+       buy_archive.amount
+  FROM buy_archive
+       INNER JOIN client USING (client_id)
+ UNION
+SELECT client.name_client,
+       buy_step.date_step_end,
+       buy_book.amount
+  FROM buy_book
+       INNER JOIN buy USING (buy_id)
+       INNER JOIN buy_step USING (buy_id)
+       INNER JOIN client USING (client_id)
+ WHERE NOT ISNULL(buy_step.date_step_end);
+```
+
+<details><br><summary>Результат</summary>
+
+```text
+name_client    |date_payment|amount|
+---------------+------------+------+
+Баранов Павел  |  2019-02-21|     2|-+
+Баранов Павел  |  2019-02-21|     1| |
+Абрамова Катя  |  2019-02-10|     2| |SELECT client.name_client,
+Абрамова Катя  |  2019-02-10|     3| |       buy_archive.date_payment,
+Абрамова Катя  |  2019-02-10|     1| |       buy_archive.amount
+Яковлева Галина|  2019-03-05|     4| |  FROM buy_archive
+Яковлева Галина|  2019-03-05|     2| |       INNER JOIN client USING (client_id)
+Баранов Павел  |  2019-03-12|     1| |
+Абрамова Катя  |  2019-03-18|     2| |
+Абрамова Катя  |  2019-03-18|     1|-+
+Баранов Павел  |  2020-02-20|     1|-+
+Баранов Павел  |  2020-02-21|     1| |
+Баранов Павел  |  2020-03-07|     1| |
+Баранов Павел  |  2020-03-08|     1| |
+Баранов Павел  |  2020-02-20|     2| |SELECT client.name_client,
+Баранов Павел  |  2020-02-21|     2| |       buy_step.date_step_end,
+Баранов Павел  |  2020-03-07|     2| |       buy_book.amount
+Баранов Павел  |  2020-03-08|     2| |  FROM buy_book
+Абрамова Катя  |  2020-03-05|     2| |       INNER JOIN buy USING (buy_id)
+Абрамова Катя  |  2020-03-06|     2| |       INNER JOIN buy_step USING (buy_id)
+Абрамова Катя  |  2020-03-11|     2| |       INNER JOIN client USING (client_id)
+Абрамова Катя  |  2020-03-05|     1| | WHERE NOT ISNULL(buy_step.date_step_end)
+Абрамова Катя  |  2020-03-06|     1| |
+Абрамова Катя  |  2020-03-11|     1| |
+Семенонов Иван |  2020-02-28|     2| |
+Семенонов Иван |  2020-03-01|     2|-+
+```
+
+</details>
