@@ -65,7 +65,7 @@ UNLOCK TABLES;
 __Данная команда сохранит в файл только данные из таблицы.__
 
 ```bash
-mysql -u <username> -p <database_name> -e "<sql_query>"> /path/to/file/table_data.csv
+mysql -u <username> -p <database_name> -e "<sql_query>" > /path/to/file/table_data.csv
 ```
 
 <details><summary>table_data.csv</summary>

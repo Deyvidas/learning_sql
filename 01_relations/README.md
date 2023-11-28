@@ -28,7 +28,7 @@
 SHOW DATABASES;                                 -- show all existent databases;
 CREATE DATABASE <db_name>;                      -- create new database;
 USE <db_name>;                                  -- select database to use;
-SELECT DATABSE();                               -- show name of used database;
+SELECT DATABASE();                              -- show name of used database;
 DROP DATABASE <db_name>;                        -- delete database;
 DROP DATABASE IF EXISTS <db_name>;              -- delete database if exists (more correct way to delete database);
 
